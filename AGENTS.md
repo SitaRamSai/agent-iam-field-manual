@@ -53,3 +53,9 @@ Agents should make the work legible enough for fast human review.
 
 Use gstack skills when they match the task. For web browsing in Claude, use
 gstack `/browse`. Do not use `mcp__claude-in-chrome__*` tools.
+
+For Codex agents, use the global Codex bridge skill at
+`~/.codex/skills/gstack`. It resolves requests like `/office-hours`,
+`/review`, or `/browse` to the matching Claude gstack skill under
+`~/.claude/skills/gstack/<skill>/SKILL.md` and applies the playbook with Codex
+tools.
