@@ -28,7 +28,7 @@ slices; here is the canonical map and where the gaps are.
 The actual matrix lives in `../../landscape/vendors.md` and updates
 monthly. This chapter freezes a snapshot at ship time.
 
-## Scope-cut rule (from PLAN.md)
+## Scope-cut rule
 
 If not drafted by end of week 7: ship with top-5 vendors only + "more
 coming" placeholder. Do not slip.

@@ -4,7 +4,7 @@ A working manual for platform, infra, and SRE engineers deploying LLM agents
 into production. Identity, authorization, and least-privilege patterns
 applied to a new kind of principal.
 
-Status: **v0.1 — outline locked, Chapter 1 in flight.**
+Status: **v0.2 — outline locked, AI-native workflow defined, Chapter 1 in flight.**
 
 ## What this is
 
@@ -42,15 +42,17 @@ Chapters ship as `chapter.md` in `chapters/NN-slug/`, mirrored to LinkedIn
 long-form and X threads on launch. Vendor matrix in `landscape/vendors.md`
 is a living document, updated monthly. Demo code in `demos/`.
 
-See [`PLAN.md`](./PLAN.md) for the full design doc, cadence, success
-criteria, and kill criteria.
+See [`DESIGN.md`](./DESIGN.md) for the public design doc and AI-native
+production workflow.
 
 ## Repo layout
 
 ```
 .
 ├── README.md                    ← you are here
-├── PLAN.md                      ← design doc + 90-day cadence
+├── DESIGN.md                    ← public design doc + agent workflow
+├── AGENTS.md                    ← operating charter for coding agents
+├── CLAUDE.md                    ← project-level gstack skill routing
 ├── chapters/
 │   ├── 01-confused-deputy/      ← chapter.md + diagrams (PoC links to /demos)
 │   ├── 02-prompt-injection-gap/
@@ -64,8 +66,7 @@ criteria, and kill criteria.
 │   └── 01-confused-deputy/      ← runnable PoC for Ch 1 (framework-less, ≤200 LOC)
 ├── landscape/
 │   └── vendors.md               ← living vendor matrix, monthly updates
-├── engagement-targets.md        ← 20 X/LinkedIn accounts (private, gitignored once filled)
-└── cfp-targets.md               ← 2 target CFPs with abstract drafts
+└── .private/                    ← local strategy files, ignored by git
 ```
 
 ## Author
@@ -75,4 +76,4 @@ manual chapter by chapter in public.
 
 ## License
 
-Content: CC BY 4.0. Code in `demos/`: MIT. See `LICENSE` (added with Ch 1).
+Content: CC BY 4.0. Code in `demos/`: MIT. See `LICENSE`.
