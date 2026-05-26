@@ -1,7 +1,7 @@
 # Agent Operating Charter
 
 This repo is intentionally AI-native. Agents can research, draft, review, test,
-and propose changes. Ramsai owns final judgment.
+and propose changes. Ram owns final judgment.
 
 ## Mission
 
@@ -38,7 +38,7 @@ privilege, and auditability concrete enough to apply.
 
 ## Human Gates
 
-Ramsai must approve:
+Ram must approve:
 
 - chapter thesis and angle
 - merged chapter text

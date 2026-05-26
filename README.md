@@ -8,13 +8,13 @@ Status: **v0.2 — outline locked, AI-native workflow defined, Chapter 1 in flig
 
 ## What this is
 
-AI security writing in 2026 splits into two camps: red-team tooling aimed at
-researchers (PyRIT, Garak, HackAPrompt) and agent-app tutorials aimed at
-developers (awesome-llm-apps). Meanwhile, vendors — Cloudflare Agent Tokens,
-AWS Verified Permissions for agents, Auth0 FGA, Permit.io, Cerbos, WorkOS,
-SPIFFE-derived patterns — are quietly shipping agent-IAM features. No one
-has woven this into a single coherent map a platform engineer can read in
-an afternoon and act on tomorrow.
+Much AI security writing in 2026 focuses on red-team tooling aimed at
+researchers (PyRIT, Garak, HackAPrompt), while many agent-app tutorials are
+aimed at developers (awesome-llm-apps). Meanwhile, vendors — Cloudflare Agent
+Tokens, AWS Verified Permissions for agents, Auth0 FGA, Permit.io, Cerbos,
+WorkOS, SPIFFE-derived patterns — are shipping agent-IAM features. The field
+still lacks a single practical map a platform engineer can read in an afternoon
+and act on tomorrow.
 
 This is that map.
 
@@ -66,6 +66,8 @@ production workflow.
 │   └── 01-confused-deputy/      ← runnable PoC for Ch 1 (framework-less, ≤200 LOC)
 ├── landscape/
 │   └── vendors.md               ← living vendor matrix, monthly updates
+├── notes/
+│   └── README.md                 ← public research-note conventions
 └── .private/                    ← local strategy files, ignored by git
 ```
 

@@ -5,10 +5,10 @@ Status: v0.2, AI-native workflow approved on 2026-05-26.
 ## Problem
 
 Platform, infra, and SRE engineers are starting to deploy LLM agents into
-production, but there is no canonical guide for agent identity, authorization,
-least privilege, and auditability. Most public AI security writing focuses on
-prompt injection and red-team tooling. Most agent tutorials focus on app
-developers. The IAM layer for agents is still scattered across vendor docs,
+production, but practical guidance for agent identity, authorization, least
+privilege, and auditability is still fragmented. Much public AI security writing
+focuses on prompt injection and red-team tooling. Many agent tutorials focus on
+app developers. The IAM layer for agents is scattered across vendor docs,
 classic workload-identity patterns, and emerging authorization products.
 
 This project is a public field manual for that gap.
@@ -33,20 +33,20 @@ security architects, and vendor engineers building the primitives.
 4. The project should be transparent about how it is made: agents can draft,
    research, review, and test, while Ramsai owns IAM judgment and final approval.
 
-## AI-Native Pivot
+## AI-Native Workflow
 
-The original plan assumed Ramsai would be the primary writer, with AI assisting.
-The approved pivot is stronger: the field manual is produced by an agentic
-workflow, and the workflow itself is part of the story.
+The field manual is produced through an agentic workflow. Agents can research,
+draft, review, test, and prepare distribution copy, but Ramsai owns the IAM
+judgment and final approval.
 
-New operating premise:
+Operating premise:
 
 > Ramsai is the curator and IAM judgment layer for AI-produced research,
 > explanation, demos, and distribution drafts.
 
-That changes the moat. The credibility is not "AI wrote this for me." The
-credibility is "I designed and oversee the agent system that produces this, and
-I review it with IAM taste and domain judgment."
+The workflow is public because it affects the artifact: every chapter should
+make the research trail, review path, demo behavior, and human approval gates
+legible.
 
 ## Production Workflow
 
@@ -61,7 +61,7 @@ Each chapter should move through the same pipeline:
    weak claims, and unsupported vendor statements.
 6. The writer agent revises the chapter.
 7. A demo agent builds runnable code when the chapter needs a PoC.
-8. CI checks links, markdown, and demo execution.
+8. CI or local checks validate links, markdown, and demo execution.
 9. Ramsai reviews the pull request and approves the public version.
 10. A distribution agent drafts LinkedIn and X copy from the merged chapter.
 11. Ramsai approves voice and posts manually.
@@ -100,6 +100,7 @@ Public files should explain the manual and show the agentic workflow:
 - `chapters/`
 - `demos/`
 - `landscape/`
+- `notes/`
 - `LICENSE`
 
 Private files belong under `.private/` and should not be pushed:
@@ -117,6 +118,7 @@ Week 1 should only push what supports the public artifact:
 - chapter stubs
 - demo placeholder
 - vendor-matrix skeleton
+- research-notes directory
 - agent operating charter
 - license
 - project-level AI/gstack instructions
