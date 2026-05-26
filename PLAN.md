@@ -319,6 +319,162 @@ sequence matters: reviewers first (private feedback), then outline (private),
 then tweet (public). Don't tweet before the outline is locked — the
 commitment must be backed by an artifact people can click into on day 1.
 
+## Week 1 Review (added 2026-05-26 by /autoplan, scoped focus)
+
+Scope: Week 1 deliverables (outline + repo + landing tweet + 2 CFP picks) plus
+B1-B5 blockers and the day-by-day Next Steps. CEO/strategy lens. No code review
+phases (this is a content plan, not a code plan).
+
+### What Week 1 actually contains (compressed)
+
+- 8-chapter outline drafted, pre-validated by 2 readers, locked
+- Public GitHub repo with outline as README and the directory scaffold
+- B2 (PoC framework), B3 (name), B4 (CFP targets), B5 (20-account reply list) resolved
+- Day-5 commitment tweet posted
+
+That is 4 substantive deliverables + 4 blocker resolutions in ~10 hours. Tight
+but feasible IF the dependencies sequence cleanly. Several do not.
+
+### Critical-path issues (P1 — these will bite)
+
+**1. Day-4 evening is overloaded.** The plan stacks: integrate reviewer
+feedback (B1) + lock outline + resolve B2 + resolve B3 + create public repo
++ push README on a single evening. Any one slipping (especially B1, which
+depends on external humans) cascades into the day-5 tweet. Decouple:
+- Move B2 (PoC framework) and B3 (name) to **day 2**, before the reviewer
+  send. They're ≤1 hour each and don't need outline feedback.
+- Day 4 evening becomes only: integrate B1 feedback → lock outline →
+  push repo → make public. Single decision per step.
+
+**2. B1 has no fallback when a reviewer ghosts.** Plan says pick 2-3
+reviewers, give them 48 hours, integrate their feedback by day 4 evening.
+Real-life base rate for "senior person responds to a content-review ask in
+48h": ~50%. Mitigation:
+- Pick **4 reviewers, send to 3**, accept 2 responses as success. Add a
+  filter: "from people who'd respond to me personally within a day"
+  (cold asks won't make the window).
+- If neither responds by day 4 noon: lock the outline without external
+  input. The forcing function (day-5 tweet) wins over the validation.
+
+**3. Day-5 tweet promises something the plan's contingency contradicts.**
+Plan's draft: "Outline here, Ch 1 in 2 weeks: [link]." The scope-cut rule
+allows shipping Ch 1 as "theory + diagram" if PoC isn't working. That's
+fine internally, but the tweet's implicit promise to a platform-eng
+audience is the working PoC (the confused-deputy demo is the whole hook).
+Either:
+- Tighten the tweet: "Outline here. Ch 1 essay in 2 weeks; PoC follow-up:"
+  — pre-frames the contingency, no surprise.
+- Or wait until day 7 to tweet, after day-6 PoC smoke test proves
+  feasibility. Costs 2 days of public commitment, buys honest framing.
+
+### High-leverage gaps (P2 — worth fixing in Week 1)
+
+**4. Outline is the most consequential artifact of the entire 90 days
+but Week 1 budgets ~5 hours of chapter work for it.** The plan even says
+"the most important artifact of the whole plan." Recommend:
+- Reallocate the entire ~5 hrs/wk "chapter work" budget into the outline
+  for week 1 (week 1 has no chapter to write).
+- Treat draft-1 as throwaway. Write it in 2 hours, then a second draft
+  in 2 hours, then send draft-2 (not draft-1) for review.
+
+**5. B5 (reply list) deferred to weekend kills the daily-X muscle for
+most of week 1.** Plan says "X + LinkedIn dual channel from week 1" with
+~4 hrs/wk on engagement. If the 20-account list isn't pinned until day 6-7,
+days 1-5 have no engagement target, no muscle memory. Move B5 to day 2
+(it's a 30-min task — write 20 handles into a file).
+
+**6. CFP picks without abstract drafts.** B4 is "pick 2 conferences."
+Good. But Week 12 then has to "write CFP abstract from scratch + submit"
+inside the lighter pattern-recap week — that is too much. Add to Week 1:
+draft one ~100-word abstract per chosen CFP. Half an hour each. Week 12
+becomes "polish + submit," which fits the slack.
+
+**7. Repo scaffold should include placeholder chapter README.md files,
+not just the top-level outline.** Plan says "Push the outline as
+README.md." Click-through experience for a curious platform engineer
+visiting the public repo is "1 README." Strong version: 8 chapter
+directories, each with a 1-paragraph chapter.md stub matching the outline.
+"This thing is real and structured" lands very differently. Costs
+20 minutes on day 4 evening. Big perception delta.
+
+### Missing: Week 1 success criteria (FLOOR / STRETCH)
+
+The plan defines FLOOR/STRETCH for weeks 4, 8, 12, 52 but not week 1.
+Suggested:
+
+- **Week 1 FLOOR:** Outline draft-2 locked. Repo public with full scaffold
+  (8 chapter dirs + landscape/ + demos/). Tweet posted. B2 + B3 decided.
+  B5 file committed. Either: ≥1 reviewer integrated OR (no responses, but
+  shipped anyway with a "v0.1, feedback welcome" framing).
+- **Week 1 STRETCH:** Both reviewers responded and integrated. Tweet got
+  ≥1 reply from a tracked-list account. CFP abstract drafts (B4 expansion)
+  committed to the repo.
+
+### Failure modes specific to Week 1
+
+| Mode | Trigger | Mitigation |
+|---|---|---|
+| Outline never feels "right" | Perfectionism, day-3 still drafting | Hard cutover: draft-2 done by day 3 noon, no exceptions. Outline ships in v0.1, evolves with chapter shipping. |
+| Reviewers don't respond | Selected too senior, cold ask, or chose wrong people | Pick 4, send to 3, accept any 2. Pre-write Slack DMs for fast send. |
+| Tweet day slips | Repo or outline not ready | Tweet is the forcing function — slip the repo, not the tweet date. If outline is locked, tweet with "repo public tomorrow" — momentum matters more than launch-day completeness. |
+| B2 (framework choice) deferred past day 5 | Decision paralysis | Pre-decide framework-less ≤200 LOC right now (already the plan's recommendation). The agonizing is theatre. |
+| Daily X cadence doesn't start | B5 not pinned, no muscle | Move B5 to day 2. Day 3 onward: 1 tweet/day starts even if low-stakes. |
+
+### Concrete day-by-day rewrite
+
+Day 0 (tonight): Pick 4 reviewer names. Pre-decide B2 = framework-less.
+Pre-decide B3 = "Field Manual."
+
+Day 1: Draft outline v1 (2 hrs). Pin B5 file: 20 accounts in
+`engagement-targets.md` (30 min). Start daily X cadence: 1 low-stakes
+tweet (15 min).
+
+Day 2: Draft outline v2 (2 hrs). Send to 3 of the 4 reviewers (15 min).
+Daily tweet + 3 replies (45 min).
+
+Day 3: Resolve B4 — pick 2 CFPs + draft 100-word abstracts each
+(1.5 hrs). Daily tweet + replies (45 min).
+
+Day 4: Integrate any reviewer responses received (1.5 hrs). Lock outline.
+Daily tweet + replies (45 min). Repo creation deferred to evening.
+
+Day 4 evening: Create repo, push full scaffold (8 chapter dirs with stub
+chapter.md each, landscape/vendors.md skeleton, demos/01-confused-deputy/
+empty), make public (45 min).
+
+Day 5: Post the commitment tweet, framed honestly: "I'm writing a field
+manual on agent IAM. Outline + structure here. Ch 1 essay in 2 weeks;
+PoC follow-up: [link]". Pin the tweet. Daily tweet + replies (60 min).
+
+Weekend: Start confused-deputy PoC prototype (2 hrs). Pure exploration —
+"does the demo work at all" — no chapter writing yet.
+
+Total: ~10 hours. Same budget, denser sequencing, fewer single-point failures.
+
+### What this review did NOT touch
+
+- Chapter 1 PoC technical design (week 2-3 territory)
+- Vendor landscape methodology for Ch 3 (week 6-8)
+- Long-arc strategy (already strong in the existing plan)
+- LinkedIn long-form cadence (acceptable as-is for week 1)
+- Newsletter (deferred to month 2 by the plan — correct)
+
+### Decisions (auto-decided per /autoplan principles)
+
+1. **Move B2 + B3 to day 2** — completeness (P1) + bias toward action (P6). Removes day-4 stack.
+2. **Pick 4 reviewers, send to 3** — completeness (P1). Fallback for ghosting.
+3. **Reframe day-5 tweet** to match the plan's own scope-cut rules — explicit over clever (P5).
+4. **Add chapter directory stubs to day-4 repo push** — boil the lake (P2), <1 day CC effort.
+5. **Add CFP abstract drafts to B4** — completeness (P1). Prevents week-12 overload.
+6. **Move B5 to day 2** — bias toward action (P6). Daily X cadence starts on day 3.
+7. **Define Week 1 FLOOR / STRETCH** — completeness (P1). Closes the gap left by the existing week-4+ success structure.
+
+No taste decisions to surface — all auto-decisions land on the same side
+(more rigor, earlier sequencing). No user challenges — the existing plan's
+direction is sound; this critique tightens execution, doesn't reframe strategy.
+
+---
+
 ## What I noticed about how you think
 
 - You pushed back twice in this session without prompting. First on

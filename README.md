@@ -1,8 +1,78 @@
-# Agent IAM Field Manual
+# Agent Identity — A Field Manual for Platform Engineers
 
-A field manual for platform engineers deploying LLM agents into production.
+A working manual for platform, infra, and SRE engineers deploying LLM agents
+into production. Identity, authorization, and least-privilege patterns
+applied to a new kind of principal.
 
-Status: **planning** — outline locks by end of week 1; Chapter 1 ships by week 3.
+Status: **v0.1 — outline locked, Chapter 1 in flight.**
 
-See [`PLAN.md`](./PLAN.md) for the full design document, premises, cadence,
-success criteria, and kill criteria.
+## What this is
+
+AI security writing in 2026 splits into two camps: red-team tooling aimed at
+researchers (PyRIT, Garak, HackAPrompt) and agent-app tutorials aimed at
+developers (awesome-llm-apps). Meanwhile, vendors — Cloudflare Agent Tokens,
+AWS Verified Permissions for agents, Auth0 FGA, Permit.io, Cerbos, WorkOS,
+SPIFFE-derived patterns — are quietly shipping agent-IAM features. No one
+has woven this into a single coherent map a platform engineer can read in
+an afternoon and act on tomorrow.
+
+This is that map.
+
+## Outline
+
+### Part I — Why Agent Identity
+- **Ch 1: The Confused Deputy Comes for Agents** *(with PoC demo)*
+- **Ch 2: Why Prompt-Injection Defenses Aren't Enough** *(the lethal-trifecta gap that IAM fills; Meta's Agents Rule of Two as context)*
+
+### Part II — The Landscape
+- **Ch 3: Who's Solving What** *(Cloudflare Agent Tokens, AWS Verified Permissions, Auth0 FGA, Permit.io, Cerbos, WorkOS, OWASP Agentic Top 10 mapping)*
+- **Ch 4: MCP and Tool Identity** *(tool-poisoning + identity-aware tool gating)*
+
+### Part III — Patterns
+- **Ch 5: Least Privilege for Agents** *(the OG IAM pattern re-applied)*
+- **Ch 6: Identity-Aware Memory & Retrieval** *(multi-tenant agent isolation, retrieval poisoning detection)*
+- **Ch 7: Auditability & the Agent as a Principal**
+
+### Part IV — Future
+- **Ch 8: What Agent IAM Looks Like in 2028**
+
+## Cadence
+
+Chapters ship as `chapter.md` in `chapters/NN-slug/`, mirrored to LinkedIn
+long-form and X threads on launch. Vendor matrix in `landscape/vendors.md`
+is a living document, updated monthly. Demo code in `demos/`.
+
+See [`PLAN.md`](./PLAN.md) for the full design doc, cadence, success
+criteria, and kill criteria.
+
+## Repo layout
+
+```
+.
+├── README.md                    ← you are here
+├── PLAN.md                      ← design doc + 90-day cadence
+├── chapters/
+│   ├── 01-confused-deputy/      ← chapter.md + diagrams (PoC links to /demos)
+│   ├── 02-prompt-injection-gap/
+│   ├── 03-landscape/
+│   ├── 04-mcp-tool-identity/
+│   ├── 05-least-privilege/
+│   ├── 06-identity-aware-memory/
+│   ├── 07-auditability/
+│   └── 08-future/
+├── demos/
+│   └── 01-confused-deputy/      ← runnable PoC for Ch 1 (framework-less, ≤200 LOC)
+├── landscape/
+│   └── vendors.md               ← living vendor matrix, monthly updates
+├── engagement-targets.md        ← 20 X/LinkedIn accounts (private, gitignored once filled)
+└── cfp-targets.md               ← 2 target CFPs with abstract drafts
+```
+
+## Author
+
+[Ramsai Goddu](https://github.com/) — IAM background, currently writing this
+manual chapter by chapter in public.
+
+## License
+
+Content: CC BY 4.0. Code in `demos/`: MIT. See `LICENSE` (added with Ch 1).
