@@ -137,22 +137,27 @@ def run_agent(model_fn: Any) -> None:
     print(f"[auth] issued token {token.request_id} for {token.user}: "
           f"{token.allowed}")
     print(f"[agent] read {len(inbox)} messages from inbox")
-    calls = model_fn(inbox)
-    print(f"[agent] model emitted {len(calls)} tool call(s)")
     refused = 0
-    for call in calls:
-        name, args = call.get("name"), dict(call.get("args", {}))
-        fn = MEDIATED_TOOLS.get(name)
-        if not fn:
-            audit(token, name, args, "deny", "unknown tool")
-            print(f"[boundary] unknown tool: {name}")
-            refused += 1
-            continue
-        result = fn(token, args)
-        verdict = "allow" if "error" not in result else "deny"
-        print(f"[boundary] {verdict} {name}({args}) -> {result}")
-        if verdict == "deny":
-            refused += 1
+    for i, msg in enumerate(inbox, 1):
+        subj = msg.get("subject", "")[:60]
+        print(f"\n[agent] message {i}/{len(inbox)} "
+              f"from {msg['from']} — {subj!r}")
+        calls = model_fn([msg])
+        print(f"[agent] model emitted {len(calls)} tool call(s) "
+              f"for message {i}")
+        for call in calls:
+            name, args = call.get("name"), dict(call.get("args", {}))
+            fn = MEDIATED_TOOLS.get(name)
+            if not fn:
+                audit(token, name, args, "deny", "unknown tool")
+                print(f"[boundary] unknown tool: {name}")
+                refused += 1
+                continue
+            result = fn(token, args)
+            verdict = "allow" if "error" not in result else "deny"
+            print(f"[boundary] {verdict} {name}({args}) -> {result}")
+            if verdict == "deny":
+                refused += 1
     print("\n--- audit log ---")
     for row in AUDIT:
         print(json.dumps(row))

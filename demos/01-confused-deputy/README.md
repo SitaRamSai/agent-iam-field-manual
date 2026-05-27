@@ -6,9 +6,16 @@ agent, one mitigated agent, the same fixtures.
 
 ## What it shows
 
-A support agent reads three emails. One of them is from an attacker who
-embedded an instruction in the email body asking the agent to send a
-customer record to an attacker-controlled address.
+A support agent reads three emails, one message at a time. One of them
+is from an attacker who embedded an instruction in the email body
+asking the agent to send a customer record to an attacker-controlled
+address.
+
+Processing one message per model call (rather than dumping the inbox
+into a single prompt) guarantees every message gets its own attention
+budget. Without this, you can't tell whether the model ignored the
+attacker's email or processed it and chose not to act — a difference
+that matters when you're trying to reason about safety.
 
 - [`demo.py`](demo.py) executes every tool call the model emits using
   the runtime's ambient authority. The record leaves the building.
@@ -57,9 +64,13 @@ will exit cleanly with a diagnostic. Verified working:
 - `command-r`, `command-r-plus`
 - `firefunction-v2`, `hermes3`, `granite3`
 
-Models **without** tool-calling templates in Ollama include `gemma2`,
-`gemma3`, and `phi3`. They will load and respond, but won't emit
-structured tool calls, so the demo has nothing to execute.
+Gemma and Phi family models have weaker tool-calling support in
+Ollama — they may emit some tool calls but often miss instructions
+buried inside content, especially in small variants. If the demo
+runs cleanly but reports `No exfiltration this run.`, that usually
+means the model didn't follow the attacker's instruction this time;
+re-run, increase model size, or pick a model from the list above for
+a more reliable demonstration.
 
 No paid services required. No third-party Python packages required.
 Pure standard library.
