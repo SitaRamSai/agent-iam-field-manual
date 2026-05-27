@@ -39,6 +39,26 @@ jobs:
             './**/*.md'
           fail: true
 
-  # Demo job is added once T8 lands (demos/01-confused-deputy/demo.py and
-  # demo_fixed.py + tests). It will run pytest, then execute both demos in
-  # --mock mode and grep for EXFILTRATED + REFUSED in their stdout.
+  demo:
+    name: confused-deputy demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: vulnerable demo prints EXFILTRATED
+        run: |
+          out=$(python3 demos/01-confused-deputy/demo.py)
+          echo "$out"
+          echo "$out" | grep -q "^EXFILTRATED " \
+            || { echo "expected EXFILTRATED token in stdout"; exit 1; }
+      - name: mitigated demo prints REFUSED
+        run: |
+          out=$(python3 demos/01-confused-deputy/demo_fixed.py)
+          echo "$out"
+          echo "$out" | grep -q "^REFUSED:" \
+            || { echo "expected REFUSED token in stdout"; exit 1; }
+          echo "$out" | grep -q "EXFILTRATED" \
+            && { echo "mitigated demo must not exfiltrate"; exit 1; } \
+            || true
