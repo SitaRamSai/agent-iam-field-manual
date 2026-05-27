@@ -1,0 +1,44 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: lint + spell + link
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            **/*.md
+            !**/node_modules/**
+            !.private/**
+
+      - name: spell check
+        uses: streetsidesoftware/cspell-action@v6
+        with:
+          files: |
+            **/*.md
+          config: .cspell.json
+          incremental_files_only: false
+
+      - name: link check
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --max-retries 3
+            --accept 200,429,503
+            --exclude-path .private
+            --no-progress
+            './**/*.md'
+          fail: true
+
+  # Demo job is added once T8 lands (demos/01-confused-deputy/demo.py and
+  # demo_fixed.py + tests). It will run pytest, then execute both demos in
+  # --mock mode and grep for EXFILTRATED + REFUSED in their stdout.

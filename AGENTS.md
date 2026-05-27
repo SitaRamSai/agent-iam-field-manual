@@ -59,3 +59,64 @@ For Codex agents, use the global Codex bridge skill at
 `/review`, or `/browse` to the matching Claude gstack skill under
 `~/.claude/skills/gstack/<skill>/SKILL.md` and applies the playbook with Codex
 tools.
+
+## Acceptance Criteria
+
+Binary checklists. Each item is yes/no, not vibes. A chapter does not ship if
+any required box is unchecked.
+
+### A chapter is "done" and ready for PR
+
+- [ ] Thesis approved by Ram in writing (commit message or PR comment)
+- [ ] `notes/research-NN.md` exists with ≥5 primary-source citations
+- [ ] Every vendor/standards claim links to primary doc, not a blog
+- [ ] Critic-agent review in PR thread (or `.private/critic-NN.md`); each
+      finding resolved or marked won't-fix with reason
+- [ ] No claim states more than its primary source supports
+- [ ] At least one diagram or code snippet
+- [ ] Word count 1,500–3,500
+- [ ] Ram has read end-to-end in one sitting and approved
+- [ ] CI green: links, markdown, spelling
+
+### A demo is "ready to merge"
+
+- [ ] Runs from a clean checkout with one documented command
+- [ ] No paid external services (or local mock provided)
+- [ ] README explains: what it shows, how to run, expected output
+- [ ] Failure mode reproducible and visible in stdout
+- [ ] Mitigated/fixed version included; both states demonstrated
+- [ ] ≤500 LOC total (or stated exception with reason in PR)
+- [ ] CI executes the demo end-to-end (or has a passing smoke test)
+- [ ] Security framing reviewed by Ram: does the demo model a real threat
+
+### The vendor matrix is "fresh"
+
+- [ ] Every row has last-verified date within 35 days
+- [ ] Every entry links to current primary doc
+- [ ] Sunset/rebrand events flagged in a changelog row
+- [ ] New entrants since last update explicitly considered
+      (evaluated, added/not added)
+- [ ] Diff posted as a monthly note
+
+### Week 1 public push is "ready to make the repo public"
+
+- [ ] Ch 1 draft merged with demo working
+- [ ] README leads with Ch 1, not the outline
+- [ ] LICENSE present (content CC BY 4.0, code MIT)
+- [ ] AGENTS.md present
+- [ ] Empty chapter stubs either removed from public view or have ≥1
+      paragraph + thesis statement
+- [ ] No `.private/` paths referenced in public files
+- [ ] CI passing
+- [ ] One-paragraph "who this is for" at top of README
+- [ ] README read on mobile and renders cleanly
+
+### The AI-native workflow is "working"
+
+- [ ] Ram review time per chapter ≤4 hours total across all gates
+- [ ] No chapter shipped requiring >1 post-merge IAM-accuracy correction
+- [ ] Research-note → draft → revision turnaround ≤2 weeks per chapter
+- [ ] Distribution drafts require ≤30 min Ram edit time
+- [ ] At least 1 chapter shipped before grading the workflow as successful
+- [ ] Critic-agent prompt includes a per-claim verification checklist,
+      not generic "review for accuracy"

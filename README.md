@@ -1,81 +1,76 @@
 # Agent Identity — A Field Manual for Platform Engineers
 
-A working manual for platform, infra, and SRE engineers deploying LLM agents
-into production. Identity, authorization, and least-privilege patterns
-applied to a new kind of principal.
+## Who this is for
 
-Status: **v0.2 — outline locked, AI-native workflow defined, Chapter 1 in flight.**
+You run agents in production. Or you're about to. You already know IAM —
+principals, scopes, capabilities, delegation, audit logs — and you know how
+to wire authn/authz for human users and for services. What you don't have is
+a single practical map for the new principal class showing up in your
+infrastructure: the LLM agent that calls tools, touches tenant data, and
+reasons across trust boundaries.
 
-## What this is
+This manual treats the agent as a first-class principal and walks through
+identity, authorization, least privilege, and audit patterns that apply to
+it. The audience is platform, infra, and SRE engineers. The cadence is one
+chapter at a time, shipped with a runnable demo where the principle benefits
+from code.
 
-Much AI security writing in 2026 focuses on red-team tooling aimed at
-researchers (PyRIT, Garak, HackAPrompt), while many agent-app tutorials are
-aimed at developers (awesome-llm-apps). Meanwhile, vendors — Cloudflare Agent
-Tokens, AWS Verified Permissions for agents, Auth0 FGA, Permit.io, Cerbos,
-WorkOS, SPIFFE-derived patterns — are shipping agent-IAM features. The field
-still lacks a single practical map a platform engineer can read in an afternoon
-and act on tomorrow.
+## Start here: Chapter 1 — The Confused Deputy Comes for Agents
 
-This is that map.
+LLM agents are the textbook 1988 confused-deputy problem, given a fresh
+attack surface and a much louder failure mode. The chapter walks the
+classic compiler example, shows why agents are confused deputies by
+construction, and ships a ≤200 LOC framework-less Python PoC that
+demonstrates the failure AND the IAM-shaped mitigation.
 
-## Outline
+- Chapter: [`chapters/01-confused-deputy/chapter.md`](./chapters/01-confused-deputy/chapter.md)
+- Demo: [`demos/01-confused-deputy/`](./demos/01-confused-deputy/)
+  — runs in mock mode without an API key, or with a real LLM for a
+  visceral version
+
+## Outline (roadmap, not calendar)
+
+Cadence is 1–2 chapters per month, evenings/weekends. Chapter folders are
+created as each chapter enters the writer-agent pipeline; the roadmap below
+is intentionally aspirational.
 
 ### Part I — Why Agent Identity
-- **Ch 1: The Confused Deputy Comes for Agents** *(with PoC demo)*
-- **Ch 2: Why Prompt-Injection Defenses Aren't Enough** *(the lethal-trifecta gap that IAM fills; Meta's Agents Rule of Two as context)*
+- **Ch 1: The Confused Deputy Comes for Agents** ✅ *(this is the launch)*
+- **Ch 2: Why Prompt-Injection Defenses Aren't Enough** — the lethal-trifecta
+  gap that IAM fills; Meta's Agents Rule of Two as context
 
 ### Part II — The Landscape
-- **Ch 3: Who's Solving What** *(Cloudflare Agent Tokens, AWS Verified Permissions, Auth0 FGA, Permit.io, Cerbos, WorkOS, OWASP Agentic Top 10 mapping)*
-- **Ch 4: MCP and Tool Identity** *(tool-poisoning + identity-aware tool gating)*
+- **Ch 3: Who's Solving What** — Cloudflare Agent Tokens, AWS Verified
+  Permissions, Auth0 FGA, Permit.io, Cerbos, WorkOS, SPIFFE-derived
+  patterns, OWASP Agentic Top 10 mapping (ships with the live vendor
+  matrix populated)
+- **Ch 4: MCP and Tool Identity** — tool-poisoning + identity-aware tool
+  gating
 
 ### Part III — Patterns
-- **Ch 5: Least Privilege for Agents** *(the OG IAM pattern re-applied)*
-- **Ch 6: Identity-Aware Memory & Retrieval** *(multi-tenant agent isolation, retrieval poisoning detection)*
+- **Ch 5: Least Privilege for Agents** — the OG IAM pattern re-applied
+- **Ch 6: Identity-Aware Memory & Retrieval** — multi-tenant agent
+  isolation, retrieval poisoning detection
 - **Ch 7: Auditability & the Agent as a Principal**
 
 ### Part IV — Future
 - **Ch 8: What Agent IAM Looks Like in 2028**
 
-## Cadence
+## How this manual is made
 
-Chapters ship as `chapter.md` in `chapters/NN-slug/`, mirrored to LinkedIn
-long-form and X threads on launch. Vendor matrix in `landscape/vendors.md`
-is a living document, updated monthly. Demo code in `demos/`.
-
-See [`DESIGN.md`](./DESIGN.md) for the public design doc and AI-native
-production workflow.
-
-## Repo layout
-
-```
-.
-├── README.md                    ← you are here
-├── DESIGN.md                    ← public design doc + agent workflow
-├── AGENTS.md                    ← operating charter for coding agents
-├── CLAUDE.md                    ← project-level gstack skill routing
-├── chapters/
-│   ├── 01-confused-deputy/      ← chapter.md + diagrams (PoC links to /demos)
-│   ├── 02-prompt-injection-gap/
-│   ├── 03-landscape/
-│   ├── 04-mcp-tool-identity/
-│   ├── 05-least-privilege/
-│   ├── 06-identity-aware-memory/
-│   ├── 07-auditability/
-│   └── 08-future/
-├── demos/
-│   └── 01-confused-deputy/      ← runnable PoC for Ch 1 (framework-less, ≤200 LOC)
-├── landscape/
-│   └── vendors.md               ← living vendor matrix, monthly updates
-├── notes/
-│   └── README.md                 ← public research-note conventions
-└── .private/                    ← local strategy files, ignored by git
-```
+This repo is AI-native. Research, drafting, critic review, demo code, and
+distribution copy go through agent pipelines; IAM judgment and final
+approval are human gates. See [`DESIGN.md`](./DESIGN.md) for the production
+workflow and [`AGENTS.md`](./AGENTS.md) for the operating charter and
+acceptance criteria.
 
 ## Author
 
-[Ramsai Goddu](https://github.com/) — IAM background, currently writing this
-manual chapter by chapter in public.
+[Ramsai Goddu](https://github.com/) — IAM background, currently writing
+this manual chapter by chapter in public.
 
 ## License
 
-Content: CC BY 4.0. Code in `demos/`: MIT. See `LICENSE`.
+Content under `chapters/` and `landscape/`: CC BY 4.0.
+Code under `demos/`: MIT.
+See [`LICENSE`](./LICENSE).
