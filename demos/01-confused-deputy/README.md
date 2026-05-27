@@ -42,9 +42,24 @@ python3 demos/01-confused-deputy/demo.py --real
 Optional — local model via Ollama on `localhost:11434`:
 
 ```bash
-ollama run llama3.2 &
+ollama pull llama3.2
 python3 demos/01-confused-deputy/demo.py --local --model llama3.2
 ```
+
+**Pick a tool-calling model.** The local path uses Ollama's `/api/chat`
+with a `tools` array. The model must have a tool-calling template
+registered in Ollama or it will return zero tool calls and the demo
+will exit cleanly with a diagnostic. Verified working:
+
+- `llama3.2`, `llama3.1`
+- `qwen2.5`, `qwen3`
+- `mistral`, `mistral-nemo`, `mistral-small`
+- `command-r`, `command-r-plus`
+- `firefunction-v2`, `hermes3`, `granite3`
+
+Models **without** tool-calling templates in Ollama include `gemma2`,
+`gemma3`, and `phi3`. They will load and respond, but won't emit
+structured tool calls, so the demo has nothing to execute.
 
 No paid services required. No third-party Python packages required.
 Pure standard library.
