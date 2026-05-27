@@ -1,45 +1,61 @@
 # Demo 01 — The Confused Deputy
 
-A minimal Python agent that demonstrates the confused-deputy problem in
-the LLM-agent context. Framework-less, single file, ≤200 LOC.
+A framework-less Python PoC for the failure mode described in
+[Chapter 1](../../chapters/01-confused-deputy/chapter.md). One vulnerable
+agent, one mitigated agent, the same fixtures.
 
-## What it does
+## What it shows
 
-1. Reads a user's email inbox (simulated or real).
-2. The agent follows an attacker-supplied instruction embedded in an
-   email body.
-3. The agent exfiltrates data the user never authorized it to share,
-   using the agent's own ambient credentials.
+A support agent reads three emails. One of them is from an attacker who
+embedded an instruction in the email body asking the agent to send a
+customer record to an attacker-controlled address.
 
-Output: a terminal session screenshot-ready for the Chapter 1 thread.
-
-## Why framework-less
-
-The point of this demo is the principle, not a framework. LangChain or
-CrewAI would obscure the IAM failure inside framework abstractions. A
-plain Python agent makes the confused deputy visible in ~150 lines.
+- [`demo.py`](demo.py) executes every tool call the model emits using
+  the runtime's ambient authority. The record leaves the building.
+  Stdout prints `EXFILTRATED`.
+- [`demo_fixed.py`](demo_fixed.py) runs the same scenario behind an
+  authorization boundary. The user issues a scoped delegation token
+  naming the action and resource they actually approved. Every tool
+  call is re-checked against the token. The attacker's instruction
+  reaches the model. The model emits a tool call. The boundary refuses
+  it. Stdout prints `REFUSED`. Every decision is in an audit log with
+  user, actor, tool, resource, decision, and reason.
 
 ## Run
 
+Default — mock model, zero dependencies, deterministic. This is what CI runs:
+
 ```bash
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-export OPENAI_API_KEY=sk-...   # or ANTHROPIC_API_KEY
-python demo.py
+python3 demos/01-confused-deputy/demo.py
+python3 demos/01-confused-deputy/demo_fixed.py
 ```
 
-Mock mode (no API key, no cost):
+Optional — real provider (uses an API key from the environment if
+present, falls back to mock if not):
+
 ```bash
-python demo.py --mock
+export OPENAI_API_KEY=sk-...        # or
+export ANTHROPIC_API_KEY=sk-ant-...
+python3 demos/01-confused-deputy/demo.py --real
 ```
 
-## Status
+Optional — local model via Ollama on `localhost:11434`:
 
-- [ ] `demo.py` (real LLM path)
-- [ ] `demo.py` mock path
-- [ ] `requirements.txt`
-- [ ] Sample inbox fixtures (`fixtures/inbox.json`)
-- [ ] Terminal-session screenshot for the chapter
-- [ ] Mitigation patch (a `demo_fixed.py` showing what scoped capabilities look like)
+```bash
+ollama run llama3.2 &
+python3 demos/01-confused-deputy/demo.py --local --model llama3.2
+```
 
-Target: working end-to-end by end of week 2. Mitigation patch by week 3.
+No paid services required. No third-party Python packages required.
+Pure standard library.
+
+## Expected output
+
+`demo.py` ends with a line that starts with `EXFILTRATED`. `demo_fixed.py`
+ends with a line that starts with `REFUSED:`. CI greps for both.
+
+## Why framework-less
+
+The point of the demo is the structural failure, not a framework. Hiding
+the tool boundary behind an agent library would obscure the IAM lesson.
+Plain Python, single file, makes the confused deputy visible.
