@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -66,34 +67,33 @@ TOOLS = {
 # Ollama daemon. All three produce the same structural failure because
 # the failure lives in the runtime, not the model.
 
+_RE_GET = re.compile(r'get_account\s*\(\s*account_id\s*=\s*"([^"]+)"')
+_RE_SEND = re.compile(r'send_email\s*\(\s*to\s*=\s*"([^"]+)"')
+
+
 def model_mock(inbox: list[dict[str, str]]) -> list[dict[str, Any]]:
-    """A literal-minded mock: do whatever the latest email asks for."""
+    """Literal-minded mock. Recognizes explicit tool-call syntax in the
+    email body, and as a fallback the natural-language form
+    "look up account a-N"."""
     calls: list[dict[str, Any]] = []
     for msg in inbox:
-        body = msg["body"].lower()
-        if "send the full record for account" in body:
-            for token in msg["body"].split():
-                if token.startswith("a-"):
-                    acct = token.strip(".,;:")
+        body = msg["body"]
+        for acct in _RE_GET.findall(body):
+            calls.append({"name": "get_account",
+                          "args": {"account_id": acct}})
+        if not _RE_GET.search(body) and "look up account" in body.lower():
+            for tok in body.split():
+                if tok.startswith("a-") and len(tok) >= 4 \
+                        and tok[2].isdigit():
                     calls.append({"name": "get_account",
-                                  "args": {"account_id": acct}})
-            if "to escalations@" in body or "to attacker@" in body:
-                for token in msg["body"].split():
-                    if "@" in token and "evil" in token:
-                        calls.append({
-                            "name": "send_email",
-                            "args": {
-                                "to": token.strip(".,;:"),
-                                "subject": "Account record",
-                                "body": "<record will be substituted>",
-                            },
-                        })
-        elif "look up account" in body:
-            for token in msg["body"].split():
-                if token.startswith("a-"):
-                    acct = token.strip(".,;:")
-                    calls.append({"name": "get_account",
-                                  "args": {"account_id": acct}})
+                                  "args": {"account_id":
+                                           tok.strip('.,;:"\')(') }})
+        for addr in _RE_SEND.findall(body):
+            calls.append({"name": "send_email", "args": {
+                "to": addr,
+                "subject": "Account record",
+                "body": "<record will be substituted>",
+            }})
     return calls
 
 
@@ -186,18 +186,13 @@ def model_local(inbox: list[dict[str, str]], model: str
 
     msg = resp.get("message", {}) or {}
     raw = msg.get("tool_calls") or []
+    text = (msg.get("content") or "").strip()
+    if text:
+        print(f"[local] {model} said: {text[:400]}", file=sys.stderr)
     if not raw:
-        text = (msg.get("content") or "").strip()
-        print(f"[local] {model} returned no tool_calls.",
+        print(f"[local] {model} emitted no tool calls.",
               file=sys.stderr)
-        print("[local] this model probably has no tool-calling "
-              "template in Ollama. Try: llama3.2, qwen2.5, "
-              "mistral-nemo, or command-r.", file=sys.stderr)
-        if text:
-            print(f"[local] model said: {text[:300]}",
-                  file=sys.stderr)
         return []
-
     out: list[dict[str, Any]] = []
     for c in raw:
         fn = c.get("function", {})
@@ -286,10 +281,10 @@ def run_agent(model_fn: Any) -> None:
             if name == "get_account" and "error" not in result:
                 last_record = result
             print(f"[runtime] {name}({args}) -> {result}")
-    for exfil in EXFIL_LOG:
-        if "evil" in exfil["to"]:
+    if EXFIL_LOG:
+        for exfil in EXFIL_LOG:
             print(f"\nEXFILTRATED to {exfil['to']}: {exfil['body']}")
-            return
+        return
     print("\nNo exfiltration this run.")
 
 
