@@ -1,6 +1,8 @@
 # Design: Agent Identity Field Manual
 
-Status: v0.2, AI-native workflow approved on 2026-05-26.
+Status: v0.2.1, Ch1-first launch confirmed on 2026-05-26 (revised after
+/office-hours pressure-test). Throughput target: 1–2 chapters/month
+steady-state, evenings/weekends.
 
 ## Problem
 
@@ -47,6 +49,25 @@ Operating premise:
 The workflow is public because it affects the artifact: every chapter should
 make the research trail, review path, demo behavior, and human approval gates
 legible.
+
+### Critic-agent prompt is versioned
+
+The critic agent is the load-bearing AI role: it verifies IAM-truth before a
+chapter ships. Generic "review for accuracy" prompts produce confident,
+plausibly-wrong feedback. The critic prompt for this project is a
+**per-claim verification checklist** that requires the critic to output a
+structured table (one row per factual claim) with primary-source URL,
+exact-match verdict, and IAM/threat/overstatement checks.
+
+The prompt lives in `.private/critic-prompt-vN.md` and is **versioned**.
+A chapter is critiqued under one frozen version. The prompt may evolve
+between chapters but never mid-chapter.
+
+### Throughput
+
+Realistic steady-state: **1–2 chapters per month**, evenings/weekends. The
+first chapter is slower (~4–6 weeks) because the workflow itself is being
+debugged through it. The 8-chapter outline is a roadmap, not a calendar.
 
 ## Production Workflow
 
@@ -112,16 +133,31 @@ Private files belong under `.private/` and should not be pushed:
 
 ## Week 1 Public Bar
 
-Week 1 should only push what supports the public artifact:
+Week 1 launches with **Chapter 1 done**, not eight empty stubs. The bar is a
+single finished artifact a platform engineer can read in 20 minutes and act on
+tomorrow.
 
-- outline and repo structure
-- chapter stubs
-- demo placeholder
-- vendor-matrix skeleton
-- research-notes directory
-- agent operating charter
-- license
-- project-level AI/gstack instructions
+Ship at launch:
 
-Everything that looks like personal strategy, relationship targeting, or
-pre-announcement copy stays private.
+- Chapter 1 (`chapters/01-confused-deputy/chapter.md`), ~2,000 words, sourced
+- Runnable PoC (`demos/01-confused-deputy/`), ≤200 LOC per file, framework-less
+  Python, with both attack and mitigated versions
+- `README.md` that leads with "who this is for" + Ch 1, not an outline
+- `AGENTS.md` operating charter with acceptance criteria
+- `DESIGN.md` (this file)
+- `LICENSE` (CC BY 4.0 content + MIT code)
+- `CLAUDE.md` project-level skill routing
+- Minimal CI (`.github/workflows/ci.yml`) — markdown lint, link check, spell
+  check, demo execution with assertions
+
+Cut from the Week 1 surface:
+
+- Empty chapter folders for Ch 2–8 (the README outline still references them
+  as roadmap, but no empty `chapter.md` files ship publicly)
+- `landscape/vendors.md` (skeleton stays, but not headlined; ships populated
+  with Ch 3)
+- Public framing of `notes/` (process directory, not reader-facing on launch)
+
+Everything that looks like personal strategy, relationship targeting,
+audience-fit validation, or pre-announcement copy stays private under
+`.private/`.
