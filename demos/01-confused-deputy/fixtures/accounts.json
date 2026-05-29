@@ -1,0 +1,14 @@
+{
+  "a-1042": {
+    "owner": "alice@acme.example",
+    "plan": "team",
+    "secret_recovery_phrase": "purple-otter-balloon-43",
+    "billing_card_last4": "4242"
+  },
+  "a-2117": {
+    "owner": "carol@acme.example",
+    "plan": "enterprise",
+    "secret_recovery_phrase": "silver-walnut-canyon-91",
+    "billing_card_last4": "1337"
+  }
+}
