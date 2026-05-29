@@ -19,6 +19,7 @@ jobs:
             **/*.md
             !**/node_modules/**
             !.private/**
+            !CLAUDE.md
 
       - name: spell check
         uses: streetsidesoftware/cspell-action@v6

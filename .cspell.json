@@ -8,7 +8,8 @@
     "**/venv/**",
     "**/__pycache__/**",
     ".github/**",
-    "LICENSE"
+    "LICENSE",
+    "CLAUDE.md"
   ],
   "words": [
     "IAM",
@@ -83,8 +84,18 @@
     "sunset",
     "hallucinate",
     "hallucination",
+    "Overreliance",
     "gstack",
-    "Conductor"
+    "Conductor",
+    "Ollama",
+    "llama",
+    "qwen",
+    "mistral",
+    "nemo",
+    "firefunction",
+    "hermes",
+    "granite",
+    "Gemma"
   ],
   "ignoreRegExpList": [
     "/https?:\\/\\/\\S+/",

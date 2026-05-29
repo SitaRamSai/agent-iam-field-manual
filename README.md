@@ -35,11 +35,13 @@ created as each chapter enters the writer-agent pipeline; the roadmap below
 is intentionally aspirational.
 
 ### Part I — Why Agent Identity
+
 - **Ch 1: The Confused Deputy Comes for Agents** ✅ *(this is the launch)*
 - **Ch 2: Why Prompt-Injection Defenses Aren't Enough** — the lethal-trifecta
   gap that IAM fills; Meta's Agents Rule of Two as context
 
 ### Part II — The Landscape
+
 - **Ch 3: Who's Solving What** — Cloudflare Agent Tokens, AWS Verified
   Permissions, Auth0 FGA, Permit.io, Cerbos, WorkOS, SPIFFE-derived
   patterns, OWASP Agentic Top 10 mapping (ships with the live vendor
@@ -48,12 +50,14 @@ is intentionally aspirational.
   gating
 
 ### Part III — Patterns
+
 - **Ch 5: Least Privilege for Agents** — the OG IAM pattern re-applied
 - **Ch 6: Identity-Aware Memory & Retrieval** — multi-tenant agent
   isolation, retrieval poisoning detection
 - **Ch 7: Auditability & the Agent as a Principal**
 
 ### Part IV — Future
+
 - **Ch 8: What Agent IAM Looks Like in 2028**
 
 ## How this manual is made
