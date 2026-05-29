@@ -70,7 +70,7 @@ acceptance criteria.
 
 ## Author
 
-[Ramsai Goddu](https://github.com/) — IAM background, currently writing
+[SitaRam](https://github.com/) — IAM background, currently writing
 this manual chapter by chapter in public.
 
 ## License
