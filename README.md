@@ -20,7 +20,7 @@ from code.
 LLM agents are the textbook 1988 confused-deputy problem, given a fresh
 attack surface and a much louder failure mode. The chapter walks the
 classic compiler example, shows why agents are confused deputies by
-construction, and ships a ≤200 LOC framework-less Python PoC that
+construction, and ships a small, dependency-free Python PoC that
 demonstrates the failure AND the IAM-shaped mitigation.
 
 - Chapter: [`chapters/01-confused-deputy/chapter.md`](./chapters/01-confused-deputy/chapter.md)
@@ -70,7 +70,7 @@ acceptance criteria.
 
 ## Author
 
-[SitaRam](https://github.com/) — IAM background, currently writing
+[SitaRam](https://github.com/SitaRamSai) — IAM background, currently writing
 this manual chapter by chapter in public.
 
 ## License

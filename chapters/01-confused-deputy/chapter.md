@@ -21,17 +21,20 @@ about prompt injection starts to look like a debate about symptoms.
 
 In a 1988 SIGOPS Operating Systems Review note titled *The Confused
 Deputy*, Norm Hardy described a compiler running on a shared mainframe.
-The compiler had been granted write access to a billing file so that it
-could record usage. It also accepted, as a command-line argument, the
-path to an output file for the compiled program. A user could ask the
-compiler to write its output to the billing file. The compiler, holding
-both authorities at once, would happily overwrite the billing record
-with compiled object code.[^hardy]
+The compiler held a write license to a protected system area so it
+could maintain its own usage statistics there. The billing file lived
+in that same protected area, so the compiler's license reached it too.
+The compiler also accepted, as a command-line argument, the path to an
+output file for the compiled program. A user could name the billing
+file as that output path. The compiler, exercising the license it held
+for its own statistics, would happily overwrite the billing record with
+compiled object code.[^hardy]
 
 The compiler is a deputy. It is acting on behalf of a user. The trouble
 is that it holds two distinct authorities — its own ambient permission
-on the billing file, and the user's much narrower permission — and it
-cannot tell which authority a particular request is asking it to use.
+over the protected system area, and the user's much narrower permission
+— and it cannot tell which authority a particular request is asking it
+to use.
 When the user asks the deputy to act, the deputy uses whichever
 authority gets the job done. Hardy's point is structural: a program
 that holds authority granted for one purpose can be induced to use that
@@ -227,7 +230,7 @@ agent deployments today, wired up around the tool surface.
 ## The proof of concept
 
 The companion PoC under [`demos/01-confused-deputy/`](../../demos/01-confused-deputy/)
-is framework-less Python in a single file under 200 lines. It models a
+is framework-less Python with no external dependencies. It models a
 support agent reading an inbox. One of the messages is from an
 attacker who embedded an instruction in the email body. The agent
 follows the instruction and uses the runtime's ambient credentials to
