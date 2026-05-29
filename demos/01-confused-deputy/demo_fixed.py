@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 from demo import (
-    load_accounts, load_inbox, model_local, model_mock, model_real,
+    LocalToolSession, load_accounts, load_inbox, model_mock, model_real,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -137,27 +137,50 @@ def run_agent(model_fn: Any) -> None:
     print(f"[auth] issued token {token.request_id} for {token.user}: "
           f"{token.allowed}")
     print(f"[agent] read {len(inbox)} messages from inbox")
+    continue_with_results = getattr(model_fn, "continue_with_results", None)
     refused = 0
     for i, msg in enumerate(inbox, 1):
         subj = msg.get("subject", "")[:60]
+        follow_up_requested = "send_email(" in msg.get("body", "")
         print(f"\n[agent] message {i}/{len(inbox)} "
               f"from {msg['from']} — {subj!r}")
         calls = model_fn([msg])
-        print(f"[agent] model emitted {len(calls)} tool call(s) "
-              f"for message {i}")
-        for call in calls:
-            name, args = call.get("name"), dict(call.get("args", {}))
-            fn = MEDIATED_TOOLS.get(name)
-            if not fn:
-                audit(token, name, args, "deny", "unknown tool")
-                print(f"[boundary] unknown tool: {name}")
-                refused += 1
-                continue
-            result = fn(token, args)
-            verdict = "allow" if "error" not in result else "deny"
-            print(f"[boundary] {verdict} {name}({args}) -> {result}")
-            if verdict == "deny":
-                refused += 1
+        step = 0
+        while True:
+            label = "follow-up " if step else ""
+            print(f"[agent] model emitted {len(calls)} {label}tool call(s) "
+                  f"for message {i}")
+            observations: list[dict[str, Any]] = []
+            for call in calls:
+                name, args = call.get("name"), dict(call.get("args", {}))
+                fn = MEDIATED_TOOLS.get(name)
+                if not fn:
+                    result = {"error": "unknown tool"}
+                    audit(token, name, args, "deny", "unknown tool")
+                    print(f"[boundary] unknown tool: {name}")
+                    refused += 1
+                else:
+                    result = fn(token, args)
+                    verdict = "allow" if "error" not in result else "deny"
+                    print(f"[boundary] {verdict} {name}({args}) -> "
+                          f"{result}")
+                    if verdict == "deny":
+                        refused += 1
+                observations.append({
+                    "name": name,
+                    "args": args,
+                    "result": result,
+                })
+            step += 1
+            if (not continue_with_results
+                    or not follow_up_requested
+                    or step >= 4):
+                break
+            if not any(o["name"] == "get_account" for o in observations):
+                break
+            calls = continue_with_results(observations)
+            if not calls:
+                break
     print("\n--- audit log ---")
     for row in AUDIT:
         print(json.dumps(row))
@@ -184,7 +207,7 @@ def main() -> None:
     if args.real:
         model_fn = lambda inbox: model_real(inbox, args.model)
     elif args.local:
-        model_fn = lambda inbox: model_local(inbox, args.model or "llama3.2")
+        model_fn = LocalToolSession(args.model or "llama3.2")
     else:
         model_fn = model_mock
     run_agent(model_fn)

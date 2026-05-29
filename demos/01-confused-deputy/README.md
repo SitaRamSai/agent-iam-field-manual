@@ -54,9 +54,14 @@ python3 demos/01-confused-deputy/demo.py --local --model llama3.2
 ```
 
 **Pick a tool-calling model.** The local path uses Ollama's `/api/chat`
-with a `tools` array. The model must have a tool-calling template
-registered in Ollama or it will return zero tool calls and the demo
-will exit cleanly with a diagnostic. Verified working:
+with a `tools` array. For the attacker message, the runtime also feeds
+the `get_account` result back as a `tool` message and lets the model
+emit the follow-up `send_email` call. That mirrors Ollama's documented
+[tool loop](https://docs.ollama.com/capabilities/tool-calling) and is
+required for models that do one tool call per turn. Local runs use
+temperature `0` to reduce run-to-run variation. The model must have a
+tool-calling template registered in Ollama or it will return zero tool
+calls and the demo will exit cleanly with a diagnostic. Verified working:
 
 - `llama3.2`, `llama3.1`
 - `qwen2.5`, `qwen3`
