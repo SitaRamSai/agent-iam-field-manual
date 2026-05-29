@@ -8,6 +8,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 ## Identity layer
 
 ### Cloudflare Agent Tokens
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -15,6 +16,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 - **Source:** _TODO_
 
 ### WorkOS (AuthKit for Agents)
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -22,6 +24,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 - **Source:** _TODO_
 
 ### SPIFFE / SPIRE (agent-adapted patterns)
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -31,6 +34,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 ## Authorization layer
 
 ### AWS Verified Permissions (for agents)
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -38,6 +42,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 - **Source:** _TODO_
 
 ### Auth0 FGA (Fine-Grained Authorization)
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -45,6 +50,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 - **Source:** _TODO_
 
 ### Permit.io
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -52,6 +58,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 - **Source:** _TODO_
 
 ### Cerbos
+
 - **What it does:** _TODO_
 - **Primitives:** _TODO_
 - **Gaps:** _TODO_
@@ -65,7 +72,7 @@ sources (vendor docs, blog posts) over secondary coverage.
 ## OWASP Agentic Top 10 → vendor mapping
 
 | Risk | Identity | Authz | Audit |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | AT01 — Memory Poisoning | — | — | — |
 | AT02 — Tool Misuse | — | — | — |
 | AT03 — Privilege Compromise | — | — | — |
