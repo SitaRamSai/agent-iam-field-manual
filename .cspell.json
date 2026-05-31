@@ -95,7 +95,15 @@
     "firefunction",
     "hermes",
     "granite",
-    "Gemma"
+    "Gemma",
+    "Willison",
+    "Debenedetti",
+    "Nasr",
+    "Carlini",
+    "AgentDojo",
+    "CaMeL",
+    "operationalizes",
+    "foolable"
   ],
   "ignoreRegExpList": [
     "/https?:\\/\\/\\S+/",
