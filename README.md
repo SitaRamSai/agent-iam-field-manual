@@ -37,8 +37,9 @@ is intentionally aspirational.
 ### Part I — Why Agent Identity
 
 - **Ch 1: The Confused Deputy Comes for Agents** ✅ *(this is the launch)*
-- **Ch 2: Why Prompt-Injection Defenses Aren't Enough** — the lethal-trifecta
-  gap that IAM fills; Meta's Agents Rule of Two as context
+- **Ch 2: Why Prompt-Injection Defenses Aren't Enough** ✅ — the lethal-trifecta
+  gap that IAM fills; Meta's Agents Rule of Two as context.
+  [`chapters/02-prompt-injection-isnt-enough/chapter.md`](./chapters/02-prompt-injection-isnt-enough/chapter.md)
 
 ### Part II — The Landscape
 
