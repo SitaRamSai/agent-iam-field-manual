@@ -61,7 +61,7 @@ the benchmark is hard for *defenses* too: it is not solved.[^agentdojo]
 The sharper result came in 2025. A team spanning OpenAI, Anthropic, and
 Google DeepMind published *The Attacker Moves Second*, which took 12
 recently published defenses against jailbreaks and prompt injection —
-defenses that had reported near-zero attack success rates in their
+most of which had reported near-zero attack success rates in their
 original papers — and subjected them to *adaptive* attacks: gradient
 descent, reinforcement learning, random search, and human-guided
 exploration that deliberately targets each defense's design. The result
@@ -130,10 +130,11 @@ language of authorization, not the language of input sanitization.
 
 ## The most promising research defense is capability-based access control
 
-The strongest evidence that this is the right layer comes from the
-defense that works best. In 2025, a Google DeepMind team published
-CaMeL — short for *Capabilities for Machine Learning* — described in
-the paper *Defeating Prompt Injections by Design*.[^camel]
+The strongest evidence that this is the right layer comes from the most
+promising design-level defense. In 2025, researchers at Google DeepMind
+and ETH Zürich published CaMeL — short for *Capabilities for Machine
+Learning* — described in the paper *Defeating Prompt Injections by
+Design*.[^camel]
 
 CaMeL is worth understanding because of what it refuses to do. It does
 not modify the model or try to make it harder to fool. Instead it
@@ -146,11 +147,11 @@ exfiltration over unauthorized data flows. On AgentDojo it solves 77%
 of tasks *with provable security*, against 84% for an undefended system
 that offers no security at all.[^camel]
 
-Notice the shape of that result. The leading research defense against
-prompt injection is not a better classifier or a more cleverly worded
-system prompt. It is capability-based access control — tracking where
-data is allowed to flow and mediating every tool call against a policy
-— applied to the agent's data and control flow. That is the
+Notice the shape of that result. One of the most promising research
+defenses against prompt injection is not a better classifier or a more
+cleverly worded system prompt. It is capability-based access control —
+tracking where data is allowed to flow and mediating every tool call
+against a policy — applied to the agent's data and control flow. That is the
 authorization layer from Chapter 1, generalized from "who may call this
 tool" to "where may this value travel." CaMeL pays for its guarantees
 in coverage; it cannot run every agent task. But it demonstrates the
