@@ -101,7 +101,9 @@
     "Nasr",
     "Carlini",
     "AgentDojo",
-    "CaMeL"
+    "CaMeL",
+    "operationalizes",
+    "foolable"
   ],
   "ignoreRegExpList": [
     "/https?:\\/\\/\\S+/",
