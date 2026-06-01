@@ -26,8 +26,10 @@ primary-sourced detail lives in the companion vendor matrix
 The first axis is the one Chapter 1 already gave you. IAM for any principal
 decomposes into three questions: *who is this principal* (identity), *what
 may it do* (authorization), and *what did it do* (audit). The agent market
-maps onto exactly those three layers, and — crucially — almost every
-product answers only one of them.
+maps onto exactly those three layers, and — crucially — the foundational,
+single-purpose tools each answer only one of them. (The larger suites later
+in this chapter span two or three; the buyer's trap is the pure-play
+primitive that looks like it does more than it does.)
 
 That is not a criticism. It is the single most important fact for a buyer.
 SPIFFE issues a workload an identity and has no opinion about what that
@@ -38,12 +40,12 @@ the other decides what; neither does the other's job. If you buy an
 identity product expecting authorization, or a policy engine expecting it
 to know who the agent is, you will ship a gap.
 
-OWASP's Agentic Top 10 is a useful spine for why all three matter: its
-threats run from identity spoofing (AT08) through privilege compromise
-(AT03) to tool misuse (AT02), and the mitigations are different controls at
-different layers.[^owasp] Keep that taxonomy in view as a checklist, not as
-a shopping list — no vendor "covers" an OWASP risk the way a feature ticks
-a box.
+OWASP's Agentic Security Initiative threat taxonomy is a useful spine for
+why all three matter: its threats run from identity spoofing through
+privilege compromise to tool misuse, and the mitigations are different
+controls at different layers.[^owasp] Keep that taxonomy in view as a
+checklist, not as a shopping list — no vendor "covers" an OWASP threat the
+way a feature ticks a box.
 
 ## The identity layer: what principal is the agent?
 
@@ -142,8 +144,8 @@ home turf:
 
 - **Microsoft Entra Agent ID** gives agents a first-class identity governed
   by familiar Entra controls — Conditional Access, identity governance,
-  identity protection — for agents managed in Microsoft Agent 365. Parts are
-  still preview.[^entra]
+  identity protection — for agents managed in Microsoft Agent 365, with
+  capabilities rolling out alongside that control plane.[^entra]
 - **AWS Bedrock AgentCore Identity** implements agent identities as
   *workload* identities with credential management, an inbound JWT
   authorizer, and outbound credential providers, integrated with the
@@ -153,7 +155,7 @@ home turf:
 - **CyberArk Secure AI Agents** brings the PAM playbook: treat the agent as
   a privileged identity, route it through an AI Agent Gateway that grants
   just-in-time, task-scoped privilege and revokes it toward zero standing
-  privileges, and log every action.[^cyberark]
+  privileges, and logs the agent's actions and communications.[^cyberark]
 - **SailPoint Agent Identity Security** brings the IGA playbook: aggregate
   agents from AWS, Azure, GCP, and Salesforce into one governed view with
   ownership and certification.[^sailpoint]
