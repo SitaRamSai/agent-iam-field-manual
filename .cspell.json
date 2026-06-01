@@ -148,7 +148,8 @@
     "PAM",
     "SIEM",
     "deactivatable",
-    "CIAM"
+    "CIAM",
+    "roadmaps"
   ],
   "ignoreRegExpList": [
     "/https?:\\/\\/\\S+/",
